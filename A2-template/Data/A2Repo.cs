@@ -19,14 +19,19 @@ namespace A2.Data
         {
             return _dbContext.Users.ToList();
         }
-        public GameRecord GetGameRecord()
+        public GameRecord GetWaitingGameRecord()
         {
-            var gameRecord = _dbContext.GameRecords.FirstOrDefault(g => g.State.Equals("Wait"));
-            if (gameRecord == null)
-            {
-                gameRecord = new GameRecord();
-            }
-            return gameRecord;
+            return  _dbContext.GameRecords.FirstOrDefault(g => g.State.Equals("wait"));
+        }
+
+        public GameRecord GetGameRecord(string guid)
+        {
+            return _dbContext.GameRecords.FirstOrDefault(g => g.GameID.Equals(guid));
+        }
+
+        public User GetUser(string userName)
+        {
+            return _dbContext.Users.FirstOrDefault(u => u.UserName == userName);
         }
 
         public User AddUser(User user)

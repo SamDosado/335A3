@@ -46,6 +46,7 @@ namespace A2.Handler
                 }
                 else
                 {
+                    Response.Headers.Add("WWW-Authenticate", "Basic");
                     return AuthenticateResult.Fail("userName and password do not match");
                 }
 
