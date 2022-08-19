@@ -5,7 +5,8 @@ namespace A2.Data
 {
     public class A2DBContext : DbContext
     {
-        DbSet<User> Users { get; set; }
-        DbSet<GameRecord> GameRecords { get; set; }
+        public A2DBContext(DbContextOptions<A2DBContext> options) : base(options) { }
+        public DbSet<User> Users { get; set; }
+        public DbSet<GameRecord> GameRecords { get; set; }
     }
 }

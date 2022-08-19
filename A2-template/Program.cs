@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<A2DBContext>(options => options.UseSqlite(builder.Configuration["WebAPIConnection"]));
+builder.Services.AddDbContext<A2DBContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("DBConnection")));
 builder.Services.AddScoped<IA2Repo, A2Repo>();
 
 var app = builder.Build();

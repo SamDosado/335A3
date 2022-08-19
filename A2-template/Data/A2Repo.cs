@@ -1,5 +1,5 @@
 using A2.Models;
-
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 namespace A2.Data
 {
     public class A2Repo : IA2Repo
@@ -13,15 +13,46 @@ namespace A2.Data
 
         public IEnumerable<GameRecord> GetAllGameRecords()
         {
-            throw new NotImplementedException();
+            return _dbContext.GameRecords.ToList();
         }
         public IEnumerable<User> GetAllUsers()
         {
-            throw new NotImplementedException();
+            return _dbContext.Users.ToList();
         }
         public GameRecord GetGameRecord()
         {
-            throw new NotImplementedException();
+            var gameRecord = _dbContext.GameRecords.FirstOrDefault(g => g.State.Equals("Wait"));
+            if (gameRecord == null)
+            {
+                gameRecord = new GameRecord();
+            }
+            return gameRecord;
         }
 
+        public User AddUser(User user)
+        {
+            EntityEntry<User> e = _dbContext.Users.Add(user);
+            User u = e.Entity;
+            _dbContext.SaveChanges();
+            return u;
+        }
+
+        public GameRecord AddGameRecord(GameRecord record)
+        {
+            EntityEntry<GameRecord> e = _dbContext.GameRecords.Add(record);
+            GameRecord gr = e.Entity;
+            _dbContext.SaveChanges();
+            return gr;
+        }
+        
+        public bool ValidLogin(string username, string password)
+        {
+            User u = _dbContext.Users.FirstOrDefault(e => e.UserName == username && e.Password == password);
+            if (u == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
+}

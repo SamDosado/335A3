@@ -7,6 +7,8 @@ namespace A2.Data
         public IEnumerable<GameRecord> GetAllGameRecords();
         public IEnumerable<User> GetAllUsers();
         public GameRecord GetGameRecord();
-
+        public User AddUser(User user);
+        public GameRecord AddGameRecord(GameRecord record);
+        public bool ValidLogin(string username, string password);
     }
 }
