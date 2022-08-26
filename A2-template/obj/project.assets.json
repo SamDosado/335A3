@@ -1371,11 +1371,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\W_y0u\\OneDrive\\Documents\\2022\\335\\A2\\335A2\\A2-template\\A2.csproj",
+      "projectUniqueName": "B:\\Documents\\Code\\335\\335A2\\A2-template\\A2.csproj",
       "projectName": "A2",
-      "projectPath": "C:\\Users\\W_y0u\\OneDrive\\Documents\\2022\\335\\A2\\335A2\\A2-template\\A2.csproj",
+      "projectPath": "B:\\Documents\\Code\\335\\335A2\\A2-template\\A2.csproj",
       "packagesPath": "C:\\Users\\W_y0u\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\W_y0u\\OneDrive\\Documents\\2022\\335\\A2\\335A2\\A2-template\\obj\\",
+      "outputPath": "B:\\Documents\\Code\\335\\335A2\\A2-template\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\W_y0u\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -1437,7 +1437,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
