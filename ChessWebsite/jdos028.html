@@ -16,7 +16,7 @@
                 <button class="navbar-button" id ="Registration-button" href="#" onclick="return show('Registration');">✍️</button>
                 <button class="navbar-button" id ="Login-button" href="#" onclick="return show('Login');">👩‍🦰</button>
                 <button class="navbar-button" id ="Game-button" href="#" onclick="return show('Game');">♟️</button>
-                <button class="navbar-button" id ="Book-button" href="#" onclick="return show('Book');">📖</button>
+                <button class="navbar-button" id ="Book-button" href="#" onclick=" show('Book'); getComments();">📖</button>
                 <div id='welcome' style="display:none"><p>Hello <a onclick="logout()">Logout?</a></p></div>
             </div>
             
@@ -50,7 +50,9 @@
             Game
         </div>
         <div class="Page" id="Book" style="display: none;">
-            Book
+            <div id="comments">
+
+            </div>
         </div>
         <script type="text/javascript" src="javascript/jdos028.js"> </script>
     </body>

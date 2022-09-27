@@ -6,7 +6,7 @@
 
 // }
 
-const user = null
+let user = null
 function getver(){
     const fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/Version', {
         headers : {
@@ -103,12 +103,21 @@ function logout(){
 }
 
 function login(){
+    console.log('Begin login')
     let uname = document.getElementById('username').value
     let pass = document.getElementById('password').value
-    user = {
-        username:uname,
-        password:pass
-    }
+    
+    const auth = uname +":"+pass;
+    const fetchPromise = fetch("https://cws.auckland.ac.nz/gas/api/VersionA", {
+        headers:{'Authorization':'Basic '+btoa(auth), 'Accept':'text/plain',
+            method:'POST'
+        }
+    })
+    console.log("Fetching")
+    console.log(fetchPromise.headers)
+    const streamPromise = fetchPromise.then((response) => {console.log(response.text())})
+    // console.log(response)
+    user = null
     document.getElementById("welcome").style.display='block'
 }
 
@@ -126,6 +135,19 @@ function show(shown){
     return false;
 }
 
+function getComments(){
+    console.log("getting comments");
+    let fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/Comments',{
+        headers:{
+            'Accept':'*/*'
+        }
+    });
+    let streamPromise =  fetchPromise.then((response) => response.text());
+    streamPromise.then((data) => {
+        document.getElementById('comments').innerHTML = data;
+    });
+    
+}
 
 document.getElementById('input').addEventListener('keyup', function(){inputListener()});
 show('Home');
