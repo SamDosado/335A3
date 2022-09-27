@@ -17,6 +17,7 @@
                 <button class="navbar-button" id ="Login-button" href="#" onclick="return show('Login');">👩‍🦰</button>
                 <button class="navbar-button" id ="Game-button" href="#" onclick="return show('Game');">♟️</button>
                 <button class="navbar-button" id ="Book-button" href="#" onclick="return show('Book');">📖</button>
+                <div id='welcome' style="display:none"><p>Hello <a onclick="logout()">Logout?</a></p></div>
             </div>
             
         </div>
@@ -29,7 +30,7 @@
         </div>
             
         <div class="Page" id="Shop" style="display:none">
-            <input type="text" id="input">
+            <input type="text" id="input" placeholder="Search">
            <div id="Shop-List">
 
            </div>
@@ -39,6 +40,11 @@
         </div>
         <div class="Page" id  = 'Login' style="display: none;">
             Login
+            <form onsubmit="login();">
+                <input type="text" id="username">
+                <input type="text" id="password">
+                <input type="submit">
+            </form>
         </div>  
         <div class="Page" id="Game" style="display: none;">
             Game
@@ -47,19 +53,5 @@
             Book
         </div>
         <script type="text/javascript" src="javascript/jdos028.js"> </script>
-        <script>
-            var textInputElement = document.getElementById('input');
-            textInputElement.addEventListener('keyup', function(){
-            var text = textInputElement.value;
-            if(text == ''){
-                getItems()
-            }else{
-                getItemsByTerm(text)
-            }
-            });
-            show('Home');
-            getver();
-            getItems();
-        </script>
     </body>
 </html>

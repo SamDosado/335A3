@@ -2,6 +2,10 @@
     float:right;
 }
 
+#navbar {
+    margin-bottom: 50px;
+}
+
 .navbar-button{
     /* background-color: white;  */
     border: none;

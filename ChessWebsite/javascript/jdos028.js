@@ -5,6 +5,8 @@
 //     document["Logo"].src = fetch("https://cws.auckland.ac.nz/gas/api/Logo")
 
 // }
+
+const user = null
 function getver(){
     const fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/Version', {
         headers : {
@@ -28,7 +30,7 @@ function getItems(){
     streamPromise.then((data) => {
         for (let i = 0; i < data.length; i++){
             const shopitem = document.createElement('div');
-            console.log(data[i])
+            // console.log(data[i])
             shopitem.innerHTML = `
             <div class='shop-item' >
                 <div class='item-img'> <img class='img-item' src='https://cws.auckland.ac.nz/gas/api/ItemPhoto/${data[i].id}' style='width:25%'></div>
@@ -44,9 +46,9 @@ function getItems(){
 
 }
 
-function getItemsByTerm(){
-    let term = document.getElementById('input').value;
-    console.log("Begin searching by term",term)
+function getItemsByTerm(term){
+    // let term = document.getElementById('input').value;
+    // console.log("Begin searching by term",term)
     const fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/Items/'+term,
     {
         headers: {
@@ -61,7 +63,7 @@ function getItemsByTerm(){
     streamPromise.then((data) => {
         for (let i = 0; i < data.length; i++){
             const shopitem = document.createElement('div');
-            console.log(data[i])
+            // console.log(data[i])
             shopitem.innerHTML = `
             <div class='shop-item' >
                 <div class='item-img'> <img class='img-item' src='https://cws.auckland.ac.nz/gas/api/ItemPhoto/${data[i].id}' style='width:25%'></div>
@@ -74,25 +76,43 @@ function getItemsByTerm(){
             maindiv.appendChild(shopitem)
         }
     })
-
 }
 
-function itemDisplay() {
-    var input, filter, ul, li, a, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myUL");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
+function inputListener(){
+    let term = document.getElementById('input').value
+    console.log("Searching by term",term)
+    if (term == ''){
+        getItems();
+    } else{
+        getItemsByTerm(term);
     }
 }
+
+
+function isLoggedIn(){
+    if (user == null){
+        return false;
+    } else{
+        return true;
+    }
+}
+
+function logout(){
+    user = null
+    document.getElementById("welcome").style.display='none'
+}
+
+function login(){
+    let uname = document.getElementById('username').value
+    let pass = document.getElementById('password').value
+    user = {
+        username:uname,
+        password:pass
+    }
+    document.getElementById("welcome").style.display='block'
+}
+
+
 
 function show(shown){
     var pages = document.getElementsByClassName("Page");
@@ -105,3 +125,9 @@ function show(shown){
     console.log("Shown ", shown)
     return false;
 }
+
+
+document.getElementById('input').addEventListener('keyup', function(){inputListener()});
+show('Home');
+getver();
+getItems();
