@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Game Academy</title>
+        
+        <link rel="icon" type="image/x-icon" href="https://cws.auckland.ac.nz/gas/api/FavIcon">
+        <link rel='stylesheet' href="css/jdos028.css">
+    </head>
+    <body>
+        <div id="navbar">
+            <img id='Logo' src="https://cws.auckland.ac.nz/gas/api/Logo"> 
+            
+            <div class="navbar-buttons">
+                <button class="navbar-button" id ="Home-button" href="#" onclick="return show('Home');">🏠</button> 
+                <button class="navbar-button" id ="Shop-button" href="#" onclick="return show('Shop');">🛒</button> 
+                <button class="navbar-button" id ="Registration-button" href="#" onclick="return show('Registration');">✍️</button>
+                <button class="navbar-button" id ="Login-button" href="#" onclick="return show('Login');">👩‍🦰</button>
+                <button class="navbar-button" id ="Game-button" href="#" onclick="return show('Game');">♟️</button>
+                <button class="navbar-button" id ="Book-button" href="#" onclick="return show('Book');">📖</button>
+            </div>
+            
+        </div>
+        <div class="Page" id="Home" style="display:none">
+            <h1>The Game Academy</h1>
+            <p>
+                I'm Losing my mind 
+            </p>
+            <p id="version" ></p>
+        </div>
+            
+        <div class="Page" id="Shop" style="display:none">
+            <input type="text" id="input">
+           <div id="Shop-List">
+
+           </div>
+        </div>
+        <div class="Page" id ='Registration' style="display:none">
+            Registration
+        </div>
+        <div class="Page" id  = 'Login' style="display: none;">
+            Login
+        </div>  
+        <div class="Page" id="Game" style="display: none;">
+            Game
+        </div>
+        <div class="Page" id="Book" style="display: none;">
+            Book
+        </div>
+        <script type="text/javascript" src="javascript/jdos028.js"> </script>
+        <script>
+            var textInputElement = document.getElementById('input');
+            textInputElement.addEventListener('keyup', function(){
+            var text = textInputElement.value;
+            if(text == ''){
+                getItems()
+            }else{
+                getItemsByTerm(text)
+            }
+            });
+            show('Home');
+            getver();
+            getItems();
+        </script>
+    </body>
+</html>
