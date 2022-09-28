@@ -19,6 +19,14 @@ function getver(){
 }
 
 function getItems(){
+    console.log('GETTING ITEMS')
+    let string = 'display:none'
+    if(isLoggedIn()){
+        console.log('- Logged in')
+        string = ''
+    } else{
+        console.log('- not logged in')
+    }
     const fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/AllItems',
     {
         headers: {
@@ -37,7 +45,7 @@ function getItems(){
                 <div class='item-name'><h1>${data[i].name}</h1></div>
                 <div class='item-desc'><p>${data[i].description}</p></div>
                 <div class='item-price'><p>Price:$${data[i].price}</p></div>
-
+                <button style='${string}' onclick='purchase(${data[i].id})'>Buy</button>
             </div>
             `
             maindiv.appendChild(shopitem)
@@ -47,6 +55,14 @@ function getItems(){
 }
 
 function getItemsByTerm(term){
+    console.log("Getting items by term")
+    let string = 'display:none'
+    if(isLoggedIn()){
+        console.log('- Logged in')
+        string = ''
+    } else{
+        console.log('- not logged in')
+    }
     // let term = document.getElementById('input').value;
     // console.log("Begin searching by term",term)
     const fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/Items/'+term,
@@ -70,12 +86,27 @@ function getItemsByTerm(term){
                 <div class='item-name'><h1>${data[i].name}</h1></div>
                 <div class='item-desc'><p>${data[i].description}</p></div>
                 <div class='item-price'><p>Price:$${data[i].price}</p></div>
-
+                <button style='${string}' onclick='purchase(${data[i].id})'>Buy</button>
             </div>
             `
+            // add purchase
             maindiv.appendChild(shopitem)
         }
     })
+}
+
+function purchase(id){
+    if(!isLoggedIn()){
+        alert("Not logged in. How'd you do this?")
+    } else{
+        const auth = user;
+        const fetchPromise = fetch("https://cws.auckland.ac.nz/gas/api/PurchaseItem/"+id, {
+        headers:{'Authorization':'Basic '+btoa(auth), 'Accept':'text/plain'
+        },
+        method:'GET',
+        body:``
+    })
+    }
 }
 
 function inputListener(){
@@ -99,7 +130,15 @@ function isLoggedIn(){
 
 function logout(){
     user = null
-    document.getElementById("welcome").style.display='none'
+    location.reload();
+    let pages = document.getElementsByClassName('logged-in')
+    for(var i = 0; i < pages.length; i++){
+        pages[i].style.display="none"
+    }
+    let pages2 = document.getElementsByClassName('logged-out')
+    for(var j = 0; j < pages2.length; j++){
+        pages2[j].style.display = 'block'
+    }
 }
 
 function login(){
@@ -108,19 +147,59 @@ function login(){
     let pass = document.getElementById('password').value
     
     const auth = uname +":"+pass;
+    console.log(auth)
     const fetchPromise = fetch("https://cws.auckland.ac.nz/gas/api/VersionA", {
-        headers:{'Authorization':'Basic '+btoa(auth), 'Accept':'text/plain',
-            method:'POST'
-        }
+        headers:{'Authorization':'Basic '+btoa(auth), 'Accept':'text/plain'
+        },
+        method:'GET'
     })
     console.log("Fetching")
     console.log(fetchPromise.headers)
-    const streamPromise = fetchPromise.then((response) => {console.log(response.text())})
+    const streamPromise = fetchPromise.then((response) => {
+        if(response.status == 401)
+        {
+            user = null
+        } else{
+            user = auth
+        }
+    })
     // console.log(response)
-    user = null
-    document.getElementById("welcome").style.display='block'
+    let pages = document.getElementsByClassName('logged-in')
+    for(var i = 0; i < pages.length; i++){
+        pages[i].style.display="block"
+    }
+    let pages2 = document.getElementsByClassName('logged-out')
+    for(var j = 0; j < pages2.length; j++){
+        pages2[j].style.display = 'none'
+    }
+    // user = null
+    // document.getElementById("welcome").style.display='block'
 }
 
+function register(){
+    if(isLoggedIn()){
+        alert("Cannot register already logged in")
+        return null
+    } 
+    let uname = document.getElementById('reg-uname').value
+    let pass = document.getElementById('reg-pass').value
+    let addr = document.getElementById('reg-addr').value
+    const fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/Version', {
+        headers : {
+            "Accept":"text/plain"
+        },
+        body:`{
+            'username':${uname},
+            'password':${pass},
+            'address':${addr}
+        }`,
+        method:'POST'
+    });
+    document.getElementById('reg-uname').value = ''
+    document.getElementById('reg-pass').value = ''
+    document.getElementById('reg-addr').value = ''
+
+}
 
 
 function show(shown){
@@ -146,10 +225,26 @@ function getComments(){
     streamPromise.then((data) => {
         document.getElementById('comments').innerHTML = data;
     });
-    
+}
+
+function postComment(){
+    console.log('posting comment')
+    let inputtext = document.getElementById('comment-text').value
+    let inputname = document.getElementById("comment-name").value
+    let obj = JSON.parse(`{"comment":"${inputtext}","name":"${inputname}"}`)
+    console.log("comment made");
+    console.log(`|${obj.comment}|`);
+    let fetchPromise = fetch('https://cws.auckland.ac.nz/gas/api/Comment', 
+    {
+        headers:{
+            'Content-Type':'application/json'
+        },
+        method:'POST',
+        body:`{"comment":"${inputtext}","name":"${inputname}"}`
+    });
+    // location.reload();
+    // show('Book');
 }
 
 document.getElementById('input').addEventListener('keyup', function(){inputListener()});
 show('Home');
-getver();
-getItems();

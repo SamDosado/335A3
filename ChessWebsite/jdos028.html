@@ -11,13 +11,13 @@
             <img id='Logo' src="https://cws.auckland.ac.nz/gas/api/Logo"> 
             
             <div class="navbar-buttons">
-                <button class="navbar-button" id ="Home-button" href="#" onclick="return show('Home');">🏠</button> 
-                <button class="navbar-button" id ="Shop-button" href="#" onclick="return show('Shop');">🛒</button> 
-                <button class="navbar-button" id ="Registration-button" href="#" onclick="return show('Registration');">✍️</button>
-                <button class="navbar-button" id ="Login-button" href="#" onclick="return show('Login');">👩‍🦰</button>
-                <button class="navbar-button" id ="Game-button" href="#" onclick="return show('Game');">♟️</button>
+                <button class="navbar-button" id ="Home-button" href="#" onclick=" show('Home');getver()">🏠</button> 
+                <button class="navbar-button" id ="Shop-button" href="#" onclick=" show('Shop');getItems();">🛒</button> 
+                <button class="navbar-button" id ="Registration-button" href="#" onclick=" show('Registration');">✍️</button>
+                <button class="navbar-button" id ="Login-button" href="#" onclick=" show('Login');">👩‍🦰</button>
+                <button class="navbar-button" id ="Game-button" href="#" onclick="show('Game');">♟️</button>
                 <button class="navbar-button" id ="Book-button" href="#" onclick=" show('Book'); getComments();">📖</button>
-                <div id='welcome' style="display:none"><p>Hello <a onclick="logout()">Logout?</a></p></div>
+                <div id='welcome' class="logged-in" style="display:none"><p>Hello <button onclick="logout()">Logout?</button></p></div>
             </div>
             
         </div>
@@ -36,20 +36,33 @@
            </div>
         </div>
         <div class="Page" id ='Registration' style="display:none">
-            Registration
+            
+            <div class="logged-out">
+                Registration
+                <input type="text" id="reg-uname" placeholder="Username">
+                <input type="text" id="reg-pass" placeholder="Password">
+                <input type="text" id="reg-addr" placeholder="Address">
+                <button onclick="register()">sumbit</button>
+            </div>
         </div>
         <div class="Page" id  = 'Login' style="display: none;">
-            Login
-            <form onsubmit="login();">
-                <input type="text" id="username">
-                <input type="text" id="password">
-                <input type="submit">
-            </form>
+            <div class="logged-out">
+                Login
+            
+                <input type="text" id="username" placeholder="Username">
+                <input type="text" id="password" placeholder="Password">
+                <button onclick="login();" >Sumbit</button>
+            </div>
+            
+            
         </div>  
         <div class="Page" id="Game" style="display: none;">
             Game
         </div>
         <div class="Page" id="Book" style="display: none;">
+            <input type="textarea" id="comment-text" placeholder="Enter Comment">
+            <input type="text" id="comment-name" placeholder="Enter Name">
+            <button onclick="postComment()" id="comment-btn">Send</button>
             <div id="comments">
 
             </div>
