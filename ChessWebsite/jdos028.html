@@ -15,7 +15,7 @@
                 <button class="navbar-button" id ="Shop-button" href="#" onclick=" show('Shop');getItems();">🛒</button> 
                 <button class="navbar-button" id ="Registration-button" href="#" onclick=" show('Registration');">✍️</button>
                 <button class="navbar-button" id ="Login-button" href="#" onclick=" show('Login');">👩‍🦰</button>
-                <button class="navbar-button" id ="Game-button" href="#" onclick="show('Game');">♟️</button>
+                <button class="navbar-button" id ="Game-button" href="#" onclick="show('Game'); generateChessboard();">♟️</button>
                 <button class="navbar-button" id ="Book-button" href="#" onclick=" show('Book'); getComments();">📖</button>
                 <div id='welcome' class="logged-in" style="display:none"><p>Hello <button onclick="logout()">Logout?</button></p></div>
             </div>
@@ -58,6 +58,9 @@
         </div>  
         <div class="Page" id="Game" style="display: none;">
             Game
+            <div id="ChessTable">
+
+            </div>
         </div>
         <div class="Page" id="Book" style="display: none;">
             <input type="textarea" id="comment-text" placeholder="Enter Comment">

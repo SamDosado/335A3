@@ -26,3 +26,27 @@
 .img-item{
     width:50rem;
 }
+
+body {
+    text-align: center;
+}
+
+.cell {
+    height: 30px;
+    width: 30px;
+    border: 1.5px solid grey;
+    border-style: inset;
+}
+
+.black-cell {
+    background-color: black;
+}
+
+.white-cell {
+    background-color: white;
+}
+
+#ChessTable{
+    display: flex;
+    justify-content: center;
+}

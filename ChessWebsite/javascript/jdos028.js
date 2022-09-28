@@ -172,6 +172,8 @@ function login(){
     for(var j = 0; j < pages2.length; j++){
         pages2[j].style.display = 'none'
     }
+    document.getElementById('username').value = ''
+    document.getElementById('password').value = ''
     // user = null
     // document.getElementById("welcome").style.display='block'
 }
@@ -242,9 +244,65 @@ function postComment(){
         method:'POST',
         body:`{"comment":"${inputtext}","name":"${inputname}"}`
     });
+    document.getElementById('comment-text').value = ''
+    document.getElementById("comment-name").value = ''
     // location.reload();
     // show('Book');
 }
+function generateChessboard(){
+    console.log('Generating Chessboard')
+    let table = document.createElement('table');
+    for (let i = 0; i < 8; i++){
+        let row = document.createElement('tr');
+        for(let j = 0; j < 8; j++){
+            let col = document.createElement('td');
+            let colImg = ''
+            if((i + j) % 2 == 0 ){
+                col.setAttribute('class', 'white-cell cell');
+            } else{
+                col.setAttribute('class','black-cell cell')
+            }
+            col.setAttribute('id', `${i},${j}`)
+            row.appendChild(col)
+            if(i == 1 || i == 6){
+                colImg = `P`
+            } else if(i == 0 || i ==7){
+                console.log('Setting row', i)
+                switch(j){
+                    case 0:
+                    case 7:
+                        colImg ='R'
+                        break;
+                    case 1:
+                    case 6:
+                        colImg='N'
+                        break;
+                    case 2:
+                    case 5:
+                        colImg='B'
+                        break;
+                    case 3:
+                        colImg='Q'
+                        break;
+                    case 4:
+                        colImg='K'
+                        break;
+                }
+            }
 
+            if (i == 0 || i == 1){
+                colImg = `<img src="https://cws.auckland.ac.nz/gas/images/${colImg}b.svg"`
+            } else if(i == 0 || i == 1){
+                colImg = `<img src="https://cws.auckland.ac.nz/gas/images/${colImg}w.svg"`
+            }
+            col.innerHTML = colImg
+        }
+        table.appendChild(row)
+    }
+    document.getElementById("ChessTable").appendChild(table);
+    table.setAttribute('cellspacing', '0');
+    table.setAttribute('width', '270px');
+    console.log("Finished Generation")
+}
 document.getElementById('input').addEventListener('keyup', function(){inputListener()});
 show('Home');
