@@ -263,39 +263,70 @@ function generateChessboard(){
                 col.setAttribute('class','black-cell cell')
             }
             col.setAttribute('id', `${i},${j}`)
-            row.appendChild(col)
+            
             if(i == 1 || i == 6){
                 colImg = `P`
+                console.log('Pawn')
             } else if(i == 0 || i ==7){
                 console.log('Setting row', i)
                 switch(j){
                     case 0:
                     case 7:
                         colImg ='R'
+                        console.log(`Setting ${i},${j} to R`)
                         break;
                     case 1:
                     case 6:
                         colImg='N'
+                        console.log(`Setting ${i},${j} to N`)
                         break;
                     case 2:
                     case 5:
                         colImg='B'
+                        console.log(`Setting ${i},${j} to B`)
                         break;
                     case 3:
-                        colImg='Q'
+                        if (i==7){
+                            colImg='Q'
+                        } else{
+                            colImg='K'
+                        }
+                        console.log(`Setting ${i},${j} to Q`)
                         break;
                     case 4:
-                        colImg='K'
+                        if (i==7){
+                            colImg='K'
+                        } else{
+                            colImg='Q'
+                        }
+                        
+                        console.log(`Setting ${i},${j} to K`)
                         break;
                 }
             }
 
             if (i == 0 || i == 1){
-                colImg = `<img src="https://cws.auckland.ac.nz/gas/images/${colImg}b.svg"`
-            } else if(i == 0 || i == 1){
-                colImg = `<img src="https://cws.auckland.ac.nz/gas/images/${colImg}w.svg"`
+                console.log(`Setting ${i},${j}'s img black pieces`)
+                // colImg = `<img src='https://cws.auckland.ac.nz/gas/images/${colImg}b.svg'`
+                // console.log(colImg)
+                let img = document.createElement('img')
+                img.setAttribute('src', `https://cws.auckland.ac.nz/gas/images/${colImg}b.svg`)
+                col.appendChild(img)
+                console.log(colImg,"Before set")
+                // col.innerHTML = colImg
+                console.log(col.innerHTML)
+            } else if(i == 6 || i == 7){
+                console.log(`Setting ${i},${j}'s img white pieces`)
+                // colImg = `<img src='https://cws.auckland.ac.nz/gas/images/${colImg}w.svg'`
+                let img = document.createElement('img')
+                img.setAttribute('src', `https://cws.auckland.ac.nz/gas/images/${colImg}w.svg`)
+                col.appendChild(img)
+                console.log(colImg,"Before set")
+                // col.innerHTML = colImg
+                console.log(col.innerHTML)
+                // console.log(colImg)
             }
-            col.innerHTML = colImg
+            row.appendChild(col)
         }
         table.appendChild(row)
     }

@@ -28,7 +28,7 @@
 }
 
 body {
-    text-align: center;
+    /* text-align: center; */
 }
 
 .cell {
@@ -39,11 +39,11 @@ body {
 }
 
 .black-cell {
-    background-color: black;
+    background-color:  	#769656;
 }
 
 .white-cell {
-    background-color: white;
+    background-color: #eeeed2;
 }
 
 #ChessTable{
